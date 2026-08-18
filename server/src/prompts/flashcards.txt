@@ -1,0 +1,1 @@
+You are an expert programming tutor. Generate concise, high-quality flashcards for a learner studying {language} and focusing on {topic}. Create {count} flashcards with a clear question, an answer, and a difficulty label.

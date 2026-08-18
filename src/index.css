@@ -1,0 +1,386 @@
+@import "@fontsource/press-start-2p";
+@import "@fontsource/jetbrains-mono";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ByteCraft OS Design System */
+
+@layer base {
+  :root {
+    /* --------------------------------------
+       Light Mode (Soft Glass Theme)
+       -------------------------------------- */
+    --background: 210 50% 98%;
+    --foreground: 220 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 15%;
+
+    --primary: 260 85% 65%; /* Vibrant Purple */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 30% 90%;
+    --secondary-foreground: 220 25% 20%;
+
+    --muted: 210 20% 92%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 280 80% 90%;
+    --accent-foreground: 260 85% 40%;
+
+    --destructive: 350 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 85%;
+    --input: 210 20% 90%;
+    --ring: 260 85% 65%;
+
+    --radius: 1rem;
+
+    /* OS-specific tokens */
+    --window-bg: 0 0% 100%;
+    --window-header: 210 20% 96%;
+    --window-border: 210 15% 85%;
+    --window-shadow: 220 40% 15%;
+
+    --taskbar-bg: 0 0% 100%;
+    --taskbar-border: 210 15% 85%;
+
+    /* Cosmic Gradient / Mesh */
+    --desktop-bg: 215 50% 95%;
+    --desktop-bg-gradient-1: 190 80% 90%;
+    --desktop-bg-gradient-2: 280 60% 95%;
+
+    --folder-bg: 0 0% 100%;
+    --folder-hover: 260 50% 94%;
+
+    --widget-bg: 210 40% 98%;
+    --widget-border: 210 20% 88%;
+
+    --success: 145 65% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 35 90% 50%;
+    --warning-foreground: 35 90% 10%;
+  }
+
+  .dark {
+    /* --------------------------------------
+       Dark Mode (Deep Aurora / Cosmic Theme)
+       -------------------------------------- */
+    --background: 236 45% 8%; /* Deep space blue */
+    --foreground: 210 30% 94%;
+
+    --card: 235 30% 12%;
+    --card-foreground: 210 30% 94%;
+
+    --popover: 235 30% 12%;
+    --popover-foreground: 210 30% 94%;
+
+    --primary: 265 89% 68%; /* Neon purple */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 235 25% 18%;
+    --secondary-foreground: 210 25% 88%;
+
+    --muted: 235 20% 16%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 300 70% 25%;
+    --accent-foreground: 300 80% 85%;
+
+    --destructive: 350 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 235 25% 20%;
+    --input: 235 25% 16%;
+    --ring: 265 89% 68%;
+
+    /* OS-specific tokens - Dark */
+    --window-bg: 235 40% 12%;
+    --window-header: 235 35% 16%;
+    --window-border: 235 30% 25%;
+    --window-shadow: 240 60% 4%;
+
+    --taskbar-bg: 235 45% 10%;
+    --taskbar-border: 235 30% 22%;
+
+    /* Dynamic Space Mesh Gradient */
+    --desktop-bg: 236 45% 6%;
+    --desktop-bg-gradient-1: 270 50% 20%; /* Purple hue */
+    --desktop-bg-gradient-2: 210 60% 15%; /* Cyan hue */
+
+    --folder-bg: 235 30% 15%;
+    --folder-hover: 265 40% 20%;
+
+    --widget-bg: 235 35% 14%;
+    --widget-border: 235 30% 22%;
+
+    --success: 150 70% 40%;
+    --success-foreground: 150 70% 96%;
+
+    --warning: 40 90% 55%;
+    --warning-foreground: 40 90% 10%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  .font-pixel {
+    font-family: 'Press Start 2P', monospace;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* ----------------------------------------
+     OS Backgrounds
+     ---------------------------------------- */
+  /* Replaces desktop-grid with an aurora/mesh gradient */
+  .desktop-grid {
+    background-color: hsl(var(--desktop-bg));
+    background-image: 
+      radial-gradient(circle at 20% 30%, hsl(var(--desktop-bg-gradient-1) / 0.5) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, hsl(var(--desktop-bg-gradient-2) / 0.5) 0%, transparent 40%);
+    animation: move-aurora 30s ease-in-out infinite alternate;
+  }
+
+  /* ----------------------------------------
+     Window Styling
+     ---------------------------------------- */
+  .os-window {
+    @apply rounded-2xl border overflow-hidden;
+    background: hsl(var(--window-bg) / 0.75);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    border-color: hsl(var(--window-border) / 0.4);
+    box-shadow: 
+      0 25px 50px -12px hsl(var(--window-shadow) / 0.4),
+      0 0 0 1px hsl(var(--window-border) / 0.3),
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.1);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  }
+
+  .os-window-header {
+    @apply flex items-center gap-2 px-4 py-3 border-b;
+    background: hsl(var(--window-header) / 0.6);
+    border-color: hsl(var(--window-border) / 0.3);
+  }
+
+  .os-window-button {
+    @apply w-3.5 h-3.5 rounded-full transition-all duration-200 border;
+  }
+  .os-window-button:hover {
+    transform: scale(1.1);
+  }
+
+  .os-window-button-close {
+    @apply bg-red-400 border-red-500/50 hover:bg-red-500;
+  }
+  .os-window-button-minimize {
+    @apply bg-yellow-400 border-yellow-500/50 hover:bg-yellow-500;
+  }
+  .os-window-button-maximize {
+    @apply bg-green-400 border-green-500/50 hover:bg-green-500;
+  }
+
+  /* ----------------------------------------
+     Taskbar
+     ---------------------------------------- */
+  .taskbar {
+    @apply fixed bottom-4 left-1/2 -translate-x-1/2 h-16 rounded-2xl border flex items-center gap-1 px-4;
+    background: hsl(var(--taskbar-bg) / 0.6);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    border-color: hsl(var(--taskbar-border) / 0.4);
+    box-shadow: 
+      0 20px 40px -10px hsl(var(--window-shadow) / 0.3),
+      inset 0 1px 0 0 hsl(0 0% 100% / 0.1);
+  }
+
+  .taskbar-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300;
+  }
+
+  .taskbar-icon:hover {
+    background: hsl(var(--muted) / 0.8);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 20px -5px hsl(var(--window-shadow) / 0.2);
+  }
+
+  .taskbar-icon.active {
+    background: hsl(var(--primary) / 0.2);
+    border: 1px solid hsl(var(--primary) / 0.3);
+  }
+
+  /* ----------------------------------------
+     Desktop Folder & Widgets
+     ---------------------------------------- */
+  .desktop-folder {
+    @apply flex flex-col items-center gap-2 p-3 rounded-xl cursor-pointer transition-all duration-200;
+    background: transparent;
+  }
+
+  .desktop-folder:hover {
+    background: hsl(var(--folder-hover) / 0.4);
+    backdrop-filter: blur(8px);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px -5px hsl(var(--window-shadow) / 0.1);
+  }
+
+  .desktop-folder:active {
+    transform: scale(0.95);
+  }
+
+  .desktop-folder.selected {
+    background: hsl(var(--primary) / 0.2);
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.4);
+    backdrop-filter: blur(8px);
+  }
+
+  .widget-card {
+    @apply rounded-xl border p-4;
+    background: hsl(var(--widget-bg) / 0.6);
+    backdrop-filter: blur(12px);
+    border-color: hsl(var(--widget-border) / 0.3);
+    box-shadow: 0 8px 24px hsl(var(--window-shadow) / 0.1);
+  }
+
+  /* ----------------------------------------
+     Driver's License / Profile Card
+     ---------------------------------------- */
+  .driver-license-card {
+    @apply relative overflow-hidden rounded-xl border border-blue-500/30 p-4 font-sans text-xs shadow-xl;
+    background: linear-gradient(135deg, hsl(calc(var(--background) + 5) 20% 95%), hsl(var(--background)));
+    color: hsl(var(--foreground));
+    aspect-ratio: 1.586 / 1; /* Standard ID card ratio */
+    min-width: 380px;
+    max-width: 100%;
+  }
+
+  .dark .driver-license-card {
+    background: linear-gradient(135deg, hsl(235 30% 18%), hsl(235 40% 10%));
+    border-color: hsl(200 80% 40% / 0.4);
+  }
+
+  /* Hologram Effect */
+  .driver-license-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: 
+      linear-gradient(125deg, transparent 20%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 60%, transparent 80%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.05'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    mix-blend-mode: color-dodge;
+  }
+
+  /* ----------------------------------------
+     Miscellaneous
+     ---------------------------------------- */
+  .boot-screen {
+    @apply fixed inset-0 flex flex-col items-center justify-center;
+    background: hsl(var(--desktop-bg));
+  }
+
+  .boot-progress {
+    @apply h-1.5 rounded-full overflow-hidden;
+    background: hsl(var(--muted));
+  }
+  .boot-progress-bar {
+    @apply h-full rounded-full transition-all duration-300 ease-out;
+    background: hsl(var(--primary));
+  }
+
+  .typewriter-cursor {
+    @apply inline-block w-2 h-5 ml-1;
+    background: hsl(var(--primary));
+    animation: blink 1s step-end infinite;
+  }
+
+  .os-input {
+    @apply border-border bg-input/50 backdrop-blur-sm rounded-lg;
+    box-shadow: inset 0 1px 2px hsl(var(--window-shadow) / 0.05);
+    transition: all 0.2s;
+  }
+  .os-input:focus {
+    box-shadow: 0 0 0 2px hsl(var(--ring) / 0.3), inset 0 1px 2px hsl(var(--window-shadow) / 0.05);
+    background: hsl(var(--input) / 0.8);
+  }
+
+  .os-button {
+    @apply transition-all duration-200 rounded-lg active:scale-95;
+  }
+  .os-button:hover:not(:disabled) {
+    box-shadow: 0 0 16px hsl(var(--primary) / 0.3);
+    transform: translateY(-1px);
+  }
+}
+
+@layer utilities {
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px hsl(var(--primary) / 0.3); }
+    50% { box-shadow: 0 0 25px hsl(var(--primary) / 0.5); }
+  }
+
+  @keyframes move-aurora {
+    from { background-position: 0% 0%; }
+    to { background-position: 100% 100%; }
+  }
+
+  .animate-fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .animate-scale-in { animation: scaleIn 0.3s ease-out forwards; }
+  .animate-slide-up { animation: slideUp 0.4s ease-out forwards; }
+  .animate-float { animation: float 4s ease-in-out infinite; }
+  .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+  /* Staggered */
+  .stagger-1 { animation-delay: 0.05s; }
+  .stagger-2 { animation-delay: 0.1s; }
+  .stagger-3 { animation-delay: 0.15s; }
+  .stagger-4 { animation-delay: 0.2s; }
+  .stagger-5 { animation-delay: 0.25s; }
+}
+

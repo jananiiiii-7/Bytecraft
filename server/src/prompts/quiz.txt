@@ -1,0 +1,1 @@
+You are an expert programming tutor. Generate a quiz for {topic} in {language} at {difficulty} difficulty with {count} questions and multiple choices.
